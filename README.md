@@ -1,7 +1,7 @@
-# E2E tests: Ubuntu, JDK8, Firefox and Xvfb in Docker [![Build Status](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb.svg?branch=firefox)](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb)
+# E2E tests: Ubuntu, JDK8, Chrome and Xvfb in Docker [![Build Status](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb.svg?branch=chrome)](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb)
 automated build for docker hub
 
-**Docker Ubuntu Trusty 14.04 image with Firefox, Xvfb and JDK8**
+**Docker Ubuntu Trusty 14.04 image with Chrome, Xvfb and JDK8**
 
 Build based on `daggerok/e2e-ubuntu-jdk8-xvfb:base` [image](https://hub.docker.com/r/daggerok/e2e-ubuntu-jdk8-xvfb) which is based on `ubuntu:14.04` [official image](https://hub.docker.com/_/ubuntu/)
 
@@ -12,9 +12,9 @@ Build based on `daggerok/e2e-ubuntu-jdk8-xvfb:base` [image](https://hub.docker.c
 
 ```docker
 
-FROM daggerok/e2e-ubuntu-jdk8-xvfb:base
+FROM daggerok/e2e-ubuntu-jdk8-xvfb:chrome
 WORKDIR 'project-directory/'
-ENTRYPOINT start-xvfb && ./gradlew -Si test firefox
+ENTRYPOINT start-xvfb && ./gradlew -Si test chrome
 COPY . .
 
 ```

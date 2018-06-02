@@ -3,8 +3,7 @@ service:
 env:
   global:
   - VERSION=v1
-  - PUSH_DOCKER_IMAGE=true
-  - SUFFIX=e2e-ubuntu-jdk8-xvfb
+  - SUFFIX="e2e-ubuntu-jdk8-xvfb"
   - DOCKER_IMAGE_NAME="daggerok/${SUFFIX}:${TRAVIS_BRANCH}"
   - IMAGE="${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}"
   - TERM=dumb
@@ -15,18 +14,15 @@ addons:
   apt:
     update: true
     packages:
-    - libappindicator1
-    - fonts-liberation
-    - wget
     - bash
     - docker-ce
 install: true
-script: docker build --no-cache --force-rm -t ${IMAGE}
-after_success: |
-  if [ "'true'" == "'${PUSH_DOCKER_IMAGE}'"  ]; then
-    echo ${DOCKER_PASSWORD} | docker login -u daggerok --password-stdin
-    docker tag ${IMAGE} ${DOCKER_IMAGE_NAME}
-    docker tag ${IMAGE} "${DOCKER_IMAGE_NAME}-latest"
-    docker tag ${IMAGE} "${DOCKER_IMAGE_NAME}-${VERSION}"
-    docker push ${DOCKER_IMAGE_NAME}
-  fi
+script: docker build --no-cache --force-rm -t ${IMAGE} .
+after_success:
+- echo ${DOCKER_PASSWORD} | docker login -u daggerok --password-stdin
+- docker tag ${IMAGE} ${DOCKER_IMAGE_NAME}
+- docker tag ${IMAGE} "${DOCKER_IMAGE_NAME}-latest"
+- docker tag ${IMAGE} "${DOCKER_IMAGE_NAME}-${VERSION}"
+- docker push ${DOCKER_IMAGE_NAME}
+- docker push "${DOCKER_IMAGE_NAME}-latest"
+- docker push "${DOCKER_IMAGE_NAME}-${VERSION}"

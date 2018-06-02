@@ -1,0 +1,28 @@
+service:
+- docker
+env:
+  global:
+  - VERSION=v1
+  - SUFFIX="e2e-ubuntu-jdk8-xvfb"
+  - DOCKER_IMAGE_NAME="daggerok/${SUFFIX}:${TRAVIS_BRANCH}"
+  - IMAGE="${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}"
+  - TERM=dumb
+  - secure: PHUeL0XiBy8704f3k211xgc4zG7rfVnBuMMvmPP+0TmXXl6ddRpvbQbZ2k45ewvt5HL7DW52cRkBR8ATAVgsCnQiRkIKHcpUUmds88r8x9ReQNyvQiflaN1Q843B9hLUwCNV3n0VuCVnbmPIFiBHIUIuKZb9X2iuGVmJOAdfsHjJFU55GMs1UkxRSrhO8hoOqNZg1hP0YrNhT2nv6ksnWMXve+zkeH2TmqkJMT6aVvlIsXZ3/c/AkQDur/IGL7aivSQM1MX3PIfucvBIrr/4kljCFPJGjDJyAackbBPbFiHouM7faDdKa0bS292kzOJtzmHR3EvvZOuTtW4ldpfUrJnGX8/Q1lJxx2FPERwij5FPt6GbHWMqULZryGHgGXn38gRl4Ej8zNnr9ORnZ9LWGCRS0LBq5pp/X41KBAETP7YH0CSLsR1BGz7QVBooBoivwDaZmfCT6L5z2uP7pF7D4uhPagP77bVofWlO9CNKBsxXW2/WmXwfz/utNaocaK0aNOhy31+iYGIsmxnp4iPSDDHwcHDouuWVoXgnMtPOeaCJ07VuxKz6ONOd23HGPE8xtT4SgvIqWTMNWck9xqqbVJXTgAhD1TUo90QBuOawtXe54D28J+rrhYqwdGUFUXLlZtdy5oOU+Svnk88lnogfxonRualB8yMI6Dx8TBdau9U=
+language: java
+jdk: oraclejdk8
+addons:
+  apt:
+    update: true
+    packages:
+    - bash
+    - docker-ce
+install: true
+script: docker build --no-cache --force-rm -t ${IMAGE} .
+after_success:
+- echo ${DOCKER_PASSWORD} | docker login -u daggerok --password-stdin
+- docker tag ${IMAGE} ${DOCKER_IMAGE_NAME}
+- docker tag ${IMAGE} "${DOCKER_IMAGE_NAME}-latest"
+- docker tag ${IMAGE} "${DOCKER_IMAGE_NAME}-${VERSION}"
+- docker push ${DOCKER_IMAGE_NAME}
+- docker push "${DOCKER_IMAGE_NAME}-latest"
+- docker push "${DOCKER_IMAGE_NAME}-${VERSION}"

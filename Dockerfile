@@ -5,18 +5,18 @@ ENV DISPLAY=':99' \
     JAVA_HOME='/usr/lib/jvm/java-8-oracle'
 ENV PATH="${JAVA_HOME}/bin:${PATH}"
 ARG JAVA_OPTS_ARGS='\
-    -Djava.net.preferIPv4Stack=true \
-    -XX:+UnlockExperimentalVMOptions \
-    -XX:+UseCGroupMemoryLimitForHeap \
-    -XshowSettings:vm'
+-Djava.net.preferIPv4Stack=true \
+-XX:+UnlockExperimentalVMOptions \
+-XX:+UseCGroupMemoryLimitForHeap \
+-XshowSettings:vm'
 ENV JAVA_OPTS="${JAVA_OPTS} ${JAVA_OPTS_ARGS}"
 # execute e2e tests as non root, but sudo user
 USER root
 RUN apt update \
  && apt install -y sudo openssh-server \
- && useradd -m e2e && echo "e2e:e2e" | chpasswd \
+ && useradd -m e2e && echo 'e2e:e2e' | chpasswd \
  && adduser e2e sudo \
- && echo "\ne2e ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers \
+ && echo '\ne2e ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
  && service ssh restart \
  && chown -R e2e:e2e /home/e2e
 WORKDIR /home/e2e

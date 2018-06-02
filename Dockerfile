@@ -40,7 +40,8 @@ RUN sudo add-apt-repository ppa:mozillateam/firefox-next \
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v${GECKO_DRV_VER}/geckodriver-v${GECKO_DRV_VER}-linux64.tar.gz \
  && tar -xvzf geckodriver* \
  && sudo mv -f geckodriver /usr/bin/ \
- && sudo chmod +x /usr/bin/geckodriver
+ && sudo chmod +x /usr/bin/geckodriver \
+ && rm -rf geckodriver-v${GECKO_DRV_VER}-linux64.tar.gz
 # chrome
 RUN sudo apt-get install -y fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 \
       libatk1.0-0 libcairo2 libcups2 libgdk-pixbuf2.0-0 libgtk-3-0 \
@@ -62,8 +63,7 @@ sudo Xvfb -ac :99 -screen 0 1280x1024x16 & \n' \
  && chmod +x ./start-xvfb \
  && sudo mv -f ./start-xvfb /usr/bin/
 # cleanup and reduce image size
-RUN sudo apt-get remove openssh-server wget software-properties-common python unzip -y \
- && sudo apt-get autoremove --purge -y \
+RUN sudo apt-get autoremove --purge -y \
  && sudo apt-get autoclean -y \
  && sudo apt-get clean -y \
  && rm -rf /tmp/* || true

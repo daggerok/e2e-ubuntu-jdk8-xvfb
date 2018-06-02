@@ -1,7 +1,20 @@
 FROM daggerok/e2e-ubuntu-jdk8-xvfb:base
 LABEL MAINTAINER='Maksim Kostromin <daggerok@gmail.com> https://github.com/daggerok'
 ENV DISPLAY=':99' \
-    GECKO_DRV_VER='0.20.1'
+    GECKO_DRV_VER='0.20.1' \
+    CHROME_DRV_VER='2.39'
+# chrome
+RUN sudo apt-get install -y fonts-liberation libappindicator3-1 libasound2 libatk-bridge2.0-0 \
+    libatk1.0-0 libcairo2 libcups2 libgdk-pixbuf2.0-0 libgtk-3-0 \
+    libnspr4 libnss3 libx11-xcb1 libxss1 xdg-utils \
+    && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+    && sudo sudo dpkg -i google-chrome-stable_current_amd64.deb \
+    && rm -rf ./google-chrome-stable_current_amd64.deb
+# chrome driver
+RUN wget https://chromedriver.storage.googleapis.com/${CHROME_DRV_VER}/chromedriver_linux64.zip \
+    && unzip chromedriver_linux64.zip \
+    && sudo mv -f chromedriver /usr/bin/ \
+    && rm -rf chromedriver_linux64.zip
 # firefox
 RUN sudo add-apt-repository ppa:mozillateam/firefox-next \
  && sudo apt-get update -y \

@@ -2,8 +2,27 @@
 automated build for docker hub
 
 **Docker Ubuntu Trusty 14.04 image with Chrome, Xvfb and JDK8**
+chrome driver version: `2.39`
 
-Build based on `daggerok/e2e-ubuntu-jdk8-xvfb:base` [image](https://hub.docker.com/r/daggerok/e2e-ubuntu-jdk8-xvfb) which is based on `ubuntu:14.04` [official image](https://hub.docker.com/_/ubuntu/)
+tags:
+
+- [latest (master)](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/master/Dockerfile)
+- [all](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/all/Dockerfile)
+
+chrome:
+
+- [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/chrome/Dockerfile)
+- [chrome-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/tree/v1chrome)
+
+firefox:
+
+- [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/firefox/Dockerfile)
+- [firefox-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1firefox)
+
+base:
+
+- [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/base/Dockerfile)
+- [base-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1base)
 
 ## Usage
 
@@ -56,3 +75,12 @@ docker run --rm --name run-my-e2e-tests \
 
 Sometines it might cause some strange and not obviouse problems for `file not found` or `permission denied` topics...
 So use it only if you know what you are doing and if you ready to spend time for some debugginh :)
+
+## Git
+
+```bash
+git tag $tagName # create tag
+git tag -d $tagName # remove tag
+git push origin --tags # push tags
+git push origin $tagName # push tag
+```

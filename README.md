@@ -13,14 +13,14 @@ tags:
 
 - [latest (master)](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/master/Dockerfile)
 - [all](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/all/Dockerfile)
-- [all-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/v2all)
-- [all-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/v1all)
+- [all-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v2all)
+- [all-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1all)
 
 chrome:
 
 - [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/chrome/Dockerfile)
-- [chrome-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/tree/v2chrome)
-- [chrome-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/tree/v1chrome)
+- [chrome-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v2chrome)
+- [chrome-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1chrome)
 
 firefox:
 

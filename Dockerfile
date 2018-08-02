@@ -5,7 +5,8 @@ ENV DISPLAY=':99' \
 # firefox
 RUN sudo add-apt-repository ppa:mozillateam/firefox-next \
  && sudo apt-get update -y \
- && sudo apt-get install -y firefox
+ && sudo apt-get clean -y \
+ && sudo apt-get install --fix-missing -y firefox
 # gecko driver
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v${GECKO_DRV_VER}/geckodriver-v${GECKO_DRV_VER}-linux64.tar.gz \
  && tar -xvzf geckodriver* \

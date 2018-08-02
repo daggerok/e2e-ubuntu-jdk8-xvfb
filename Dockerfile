@@ -12,8 +12,9 @@ ARG JAVA_OPTS_ARGS='\
 ENV JAVA_OPTS="${JAVA_OPTS} ${JAVA_OPTS_ARGS}"
 # execute e2e tests as non root, but sudo user
 USER root
-RUN apt update \
- && apt install -y sudo openssh-server \
+RUN apt update -y \
+ && apt-get clean \ 
+ && apt install --fix-missing -y sudo openssh-server \
  && useradd -m e2e && echo 'e2e:e2e' | chpasswd \
  && adduser e2e sudo \
  && echo '\ne2e ALL=(ALL:ALL) NOPASSWD: ALL' >> /etc/sudoers \
@@ -23,15 +24,15 @@ WORKDIR /home/e2e
 USER e2e
 # prepare
 RUN sudo apt-get update -y \
- && sudo apt-get install -y wget bash software-properties-common
+ && sudo apt-get install --fix-missing -y wget bash software-properties-common
 # jdk8
 RUN sudo apt-add-repository -y ppa:webupd8team/java \
  && sudo apt-get update -y \
  && sudo echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections \
  && sudo echo debconf shared/accepted-oracle-license-v1-1   seen true | sudo debconf-set-selections \
- && sudo apt-get install -y oracle-java8-installer oracle-java8-set-default oracle-java8-unlimited-jce-policy
+ && sudo apt-get install --fix-missing -y oracle-java8-installer oracle-java8-set-default oracle-java8-unlimited-jce-policy
 # xvfb stuff
-RUN sudo apt-get install -y xvfb xorg xvfb dbus-x11 xfonts-100dpi xfonts-75dpi xfonts-cyrillic \
+RUN sudo apt-get install --fix-missing -y xvfb xorg xvfb dbus-x11 xfonts-100dpi xfonts-75dpi xfonts-cyrillic \
  && echo '#!/bin/bash \n\
 sudo chown -R e2e:e2e ~/ || true \n\
 echo "starting Xvfb..." \n\

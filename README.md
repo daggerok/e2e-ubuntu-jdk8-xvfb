@@ -1,37 +1,76 @@
-# E2E tests: Ubuntu, JDK8, Firefox and Xvfb in Docker [![Build Status](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb.svg?branch=firefox)](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb)
+# E2E tests: Ubuntu, JDK8, Chrome / Firefox and Xvfb in Docker [![Build Status](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb.svg?branch=firefox)](https://travis-ci.org/daggerok/e2e-ubuntu-jdk8-xvfb)
 automated build for docker hub
 
+**Docker Ubuntu Trusty 14.04 image with Base Xvfb and JDK8**
+**Docker Ubuntu Trusty 14.04 image with Chrome, Xvfb and JDK8**
 **Docker Ubuntu Trusty 14.04 image with Firefox, Xvfb and JDK8**
 
 Build based on `ubuntu:14.04` [official image](https://hub.docker.com/_/ubuntu/)
-gecko driver version: `0.20.1`
+gecko driver version: `0.21.0`
+chrome driver version: `2.41`
 
 tags:
 
-- [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/master/Dockerfile)
+- [latest (master)](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/master/Dockerfile)
 - [all](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/all/Dockerfile)
-- [chrome](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/chrome/Dockerfile)
+- [all-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/v2all)
+- [all-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/v1all)
+
+chrome:
+
+- [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/chrome/Dockerfile)
+- [chrome-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/tree/v2chrome)
+- [chrome-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/tree/v1chrome)
 
 firefox:
 
 - [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/firefox/Dockerfile)
+- [firefox-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v2firefox)
 - [firefox-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1firefox)
 
 base:
 
 - [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/base/Dockerfile)
+- [base-v2](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v2base)
 - [base-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1base)
 
 ## Usage
 
 ### just create your test Dockerfile
 
-```docker
+```dockerfile
+
+FROM daggerok/e2e-ubuntu-jdk8-xvfb:all
+WORKDIR 'project-directory/'
+ENTRYPOINT start-xvfb \
+           && ./gradlew test chrome \
+           && ./gradlew test firefox
+COPY . .
+
+```
+
+```dockerfile
+
+FROM daggerok/e2e-ubuntu-jdk8-xvfb:chrome
+WORKDIR 'project-directory/'
+ENTRYPOINT start-xvfb && ./gradlew test chrome
+COPY . .
+
+```
+
+```dockerfile
 
 FROM daggerok/e2e-ubuntu-jdk8-xvfb:firefox
 WORKDIR 'project-directory/'
-ENTRYPOINT start-xvfb && ./gradlew -Si test firefox
+ENTRYPOINT start-xvfb && ./gradlew test firefox
 COPY . .
+
+```
+
+```dockerfile
+
+FROM daggerok/e2e-ubuntu-jdk8-xvfb:base
+RUN echo 'install browser, webdriver and use already installed and configured jdk8 + Xvfb based on Ubuntu 14.04'
 
 ```
 
@@ -76,8 +115,10 @@ So use it only if you know what you are doing and if you ready to spend time for
 ## Git
 
 ```bash
+
 git tag $tagName # create tag
 git tag -d $tagName # remove tag
 git push origin --tags # push tags
 git push origin $tagName # push tag
+
 ```

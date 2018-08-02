@@ -13,7 +13,11 @@ tags:
 - [all](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/all/Dockerfile)
 - [firefox](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/firefox/Dockerfile)
 - [chrome](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/chrome/Dockerfile)
-- [base](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/base/Dockerfile)
+
+base:
+
+- [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/base/Dockerfile)
+- [base-v1](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/tree/v1base/)
 
 ## Usage
 

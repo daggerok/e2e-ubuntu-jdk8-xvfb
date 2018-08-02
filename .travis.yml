@@ -2,7 +2,7 @@ service:
 - docker
 env:
   global:
-  - VERSION=v1
+  - VERSION=v2
   - SUFFIX="e2e-ubuntu-jdk8-xvfb"
   - DOCKER_IMAGE_NAME="daggerok/${SUFFIX}:${TRAVIS_BRANCH}"
   - IMAGE="${TRAVIS_BRANCH}-${TRAVIS_BUILD_NUMBER}"

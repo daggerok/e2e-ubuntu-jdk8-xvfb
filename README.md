@@ -10,6 +10,10 @@ Build based on `ubuntu:14.04` [official image](https://hub.docker.com/_/ubuntu/)
 tags:
 
 - [latest](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/master/Dockerfile)
+- [all](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/all/Dockerfile)
+- [firefox](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/firefox/Dockerfile)
+- [chrome](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/chrome/Dockerfile)
+- [base](https://github.com/daggerok/e2e-ubuntu-jdk8-xvfb/blob/base/Dockerfile)
 
 ## Usage
 
@@ -19,4 +23,13 @@ tags:
 
 FROM daggerok/e2e-ubuntu-jdk8-xvfb:base
 RUN echo 'install browser, webdriver and use already installed and configured jdk8 + Xvfb based on Ubuntu 14.04'
+```
+
+## Git
+
+```bash
+git tag $tagName # create tag
+git tag -d $tagName # remove tag
+git push origin --tags # push tags
+git push origin $tagName # push tag
 ```

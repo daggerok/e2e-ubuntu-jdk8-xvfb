@@ -36,8 +36,8 @@ base:
 FROM daggerok/e2e-ubuntu-jdk8-xvfb:all
 WORKDIR 'project-directory/'
 ENTRYPOINT start-xvfb \
-           && ./gradlew -Si test chrome \
-           && ./gradlew -Si test firefox
+           && ./gradlew test chrome \
+           && ./gradlew test firefox
 COPY . .
 
 ```

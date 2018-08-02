@@ -4,6 +4,7 @@ automated build for docker hub
 **Docker Ubuntu Trusty 14.04 image with Chrome Firefox, Xvfb and JDK8**
 
 Build based on `daggerok/e2e-ubuntu-jdk8-xvfb:base` [image](https://hub.docker.com/r/daggerok/e2e-ubuntu-jdk8-xvfb) which is based on `ubuntu:14.04` [official image](https://hub.docker.com/_/ubuntu/)
+geckodriver version: `0.21.0`
 
 ## Usage
 

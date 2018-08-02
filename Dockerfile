@@ -1,7 +1,7 @@
-FROM daggerok/e2e-ubuntu-jdk8-xvfb:base-v1
+FROM daggerok/e2e-ubuntu-jdk8-xvfb:base-v2
 LABEL MAINTAINER='Maksim Kostromin <daggerok@gmail.com> https://github.com/daggerok'
 ENV DISPLAY=':99' \
-    CHROME_DRV_VER='2.39'
+    CHROME_DRV_VER='2.41'
 # chrome
 RUN sudo apt-get update -y \
  && sudo apt-get clean -y \
